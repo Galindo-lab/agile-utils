@@ -6,7 +6,8 @@ public class Proyect {
 
     private String name;
     private String objetive;
-    public ProyectFile file;
+    private ProyectFile file;
+    
     public Vector<Requirement> requirements = new Vector<>();
     public TaskBoard taskboard;
     public Vector<UserHistory> stories = new Vector<>();
@@ -16,7 +17,7 @@ public class Proyect {
         this.objetive = objetive;
         this.taskboard = new TaskBoard();
     }
-
+    
     public String getName() {
         return this.name;
     }
@@ -32,7 +33,9 @@ public class Proyect {
     public void setObjetive(String objetive) {
         this.objetive = objetive;
     }
-
+    
+    
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -47,5 +50,13 @@ public class Proyect {
         return sb.toString();
     }
 
-    
+    public ProyectFile getFile() {
+        return file;
+    }
+
+    public void setFile(ProyectFile file) {
+        this.file = file;
+    }
+
+
 }

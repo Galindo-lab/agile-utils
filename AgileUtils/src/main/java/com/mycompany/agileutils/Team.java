@@ -5,11 +5,9 @@ import java.util.Vector;
 public class Team {
 
     private String name;
-    private int id;
     public Vector<TeamMember> members = new Vector<>();
 
-    public Team(int id, String name) {
-        this.id = id;
+    public Team(String name) {
         this.name = name;
     }
 
@@ -18,7 +16,6 @@ public class Team {
         StringBuilder sb = new StringBuilder();
         sb.append("Team{");
         sb.append("name=").append(name);
-        sb.append(", id=").append(id);
         sb.append(", members=").append(members);
         sb.append('}');
         return sb.toString();
@@ -30,14 +27,6 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
 }
