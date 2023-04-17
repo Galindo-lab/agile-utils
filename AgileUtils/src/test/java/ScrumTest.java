@@ -25,8 +25,8 @@ public class ScrumTest {
 
     public ScrumTest() {
         this.proyect = new ScrumProyect(
-            "Proyecto para tests",
-            "El objetivo del proyecto es hacer pruebas"
+                "Proyecto para tests",
+                "El objetivo del proyecto es hacer pruebas"
         );
     }
 
@@ -52,7 +52,6 @@ public class ScrumTest {
     //
     // @Test
     // public void hello() {}
-    
     /**
      * TODO: Preguntar si los requerimientos se pueden eliminar
      */
@@ -65,23 +64,31 @@ public class ScrumTest {
     }
 
     @Test
-    public void teams() {
-        String equipoExiste ="Equipo de prueba";
-        String equipoNoExiste ="Equipo de prueba que no existe";
-        
-        proyect.teams.add(new ScrumTeam(equipoExiste));
-        
+    public void Teams() {
+        String equipoExiste = "Equipo de prueba";
+        String equipoNoExiste = "Equipo de prueba que no existe";
+
+        proyect.createTeam(equipoExiste);
+
         // referenciar si existe
         assertNotNull(proyect.getTeam(equipoExiste));
-        
-        
+
         // retornar null si no
         assertNull(proyect.getTeam(equipoNoExiste));
+
+        proyect.removeTeam(equipoExiste);
+        assertNull(proyect.getTeam(equipoExiste));
         
+        proyect.createTeam(equipoExiste);
+        assertNotNull(proyect.getTeam(equipoExiste));
+    }
+
+//    @Test
+    public void teamMembers() {
+        String equipoExiste = "Equipo de prueba";
         
         ScrumTeam selectedTeam = proyect.getTeam(equipoExiste);
         selectedTeam.members.add(new TeamMember("Persona de prueba"));
         System.out.println(proyect.getTeam(equipoExiste));
-        
     }
 }
