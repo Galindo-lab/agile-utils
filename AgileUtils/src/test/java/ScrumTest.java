@@ -83,7 +83,7 @@ public class ScrumTest {
         assertNotNull(proyect.getTeam(equipoExiste));
     }
 
-//    @Test
+    @Test
     public void teamMembers() {
         String equipoExiste = "Equipo de prueba";
         
