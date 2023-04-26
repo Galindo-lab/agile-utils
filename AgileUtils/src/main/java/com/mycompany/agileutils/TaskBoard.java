@@ -4,9 +4,9 @@ import java.util.Vector;
 
 public class TaskBoard {
 
-    public Vector<Activity> activities = new Vector<>();
+    public Vector<Task> activities = new Vector<>();
 
-    public void addActivity(Activity activity) {
+    public void addActivity(Task activity) {
         activities.add(activity);
     }
 
