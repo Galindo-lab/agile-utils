@@ -1,6 +1,6 @@
 package SCRUM;
 
-import com.mycompany.agileutils.Activity;
+import com.mycompany.agileutils.Task;
 import com.mycompany.agileutils.Proyect;
 import com.mycompany.agileutils.Requirement;
 import com.mycompany.agileutils.Team;
