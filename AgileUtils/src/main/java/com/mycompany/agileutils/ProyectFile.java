@@ -1,13 +1,25 @@
 package com.mycompany.agileutils;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import net.sf.mpxj.ProjectFile;
+
 public class ProyectFile {
 
-    private String path;
+    private Path path;
+    private ProjectFile project;
 
     public ProyectFile(String path) {
-        this.path = path;
+        this.project = new ProjectFile();
+        this.path = Paths.get(path);
     }
-
+    
+    public void export(Proyect proyect)
+    {
+        var exporter = new ProyectFileExporter(proyect, this.project);
+        
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -17,11 +29,11 @@ public class ProyectFile {
         return sb.toString();
     }
 
-    public String getPath() {
+    public Path getPath() {
         return this.path;
     }
 
-    public void setPath(String path) {
+    public void setPath(Path path) {
         this.path = path;
     }
 

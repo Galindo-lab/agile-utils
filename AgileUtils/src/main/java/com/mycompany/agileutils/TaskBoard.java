@@ -1,6 +1,8 @@
 package com.mycompany.agileutils;
 
+import java.util.Iterator;
 import java.util.Vector;
+import net.sf.mpxj.ProjectFile;
 
 public class TaskBoard {
 
@@ -12,6 +14,39 @@ public class TaskBoard {
 
     public void removeActivity(int id) {
         activities.remove(id);
+    }
+    
+    public int size()
+    {
+        return this.activities.size();
+    }
+    
+    public Task getByID(int id)
+    {
+        
+        for (int i = 0; i < this.activities.size(); i++) {
+            if (this.activities.get(i).getId() == id) {
+                return this.activities.get(i);
+            }
+        }
+        
+        return null;
+    }
+    
+    public Task get(int index)
+    {
+        return activities.get(index);
+    }
+    
+    /**
+     * Covierte el taskboard del proyecto en actividades para el proyecto en
+     * MPXJ
+     * @param project
+     */
+    public void export(ProjectFile project) {
+        for (int i = 0; i < this.activities.size(); i++) {
+            this.activities.get(i).export(project.addTask());
+        }
     }
 
     @Override

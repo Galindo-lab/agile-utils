@@ -2,14 +2,23 @@ package com.mycompany.agileutils;
 
 import java.util.Vector;
 import java.time.Period;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import net.sf.mpxj.Duration;
 
+/**
+ *
+ * @author Eduar
+ */
 public class Task {
 
     static final int NOT_ASSIGNED = 0;
     static final int IN_PROGRESS = 1;
     static final int DONE = 2;
 
-    private Period period;
+    private Date start;
+    private Date end;
+
     private String name;
     private String description;
     private int id;
@@ -17,20 +26,70 @@ public class Task {
     public Vector<UserHistory> stories = new Vector<>();
     public TeamMember teamMember;
 
-    public Task(int id, String name, String description, Period period) {
-        this.period = period;
+    /**
+     *
+     * @param id
+     * @param name
+     * @param description
+     * @param start
+     * @param end
+     */
+    public Task(int id, String name, String description, Date start, Date end) {
+        this.end = end;
+        this.start = start;
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = Task.NOT_ASSIGNED;
     }
 
-    public Period getPeriod() {
-        return this.period;
+    /**
+     * Calcula la diferencia entre el inicio y el final en dias
+     *
+     * @return
+     */
+    public long getDurationDays() {
+        long diffInMillies = end.getTime() - start.getTime();
+        TimeUnit timeUnit = TimeUnit.DAYS;
+        return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 
-    public void setPeriod(Period period) {
-        this.period = period;
+    /**
+     * Convierte un task de la bibloteca AGIL y agrega a un proyecto MPXJ
+     * @param task
+     */
+    public void export(net.sf.mpxj.Task task) {
+        task.setName(this.getName());
+        task.setStart(this.getStart());
+        task.setID(this.getId());
+        task.setPercentageComplete(this.getStatus() == Task.DONE ? 100 : 0);
+
+        var foo = Duration.getInstance(this.getDurationDays(), net.sf.mpxj.TimeUnit.DAYS);
+        task.setDuration(foo);
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public Vector<UserHistory> getStories() {
+        return stories;
+    }
+
+    public void setStories(Vector<UserHistory> stories) {
+        this.stories = stories;
     }
 
     public String getName() {
@@ -76,8 +135,9 @@ public class Task {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Activity{");
-        sb.append("period=").append(period);
+        sb.append("Task{");
+        sb.append("start=").append(start);
+        sb.append(", end=").append(end);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", id=").append(id);
@@ -87,5 +147,5 @@ public class Task {
         sb.append('}');
         return sb.toString();
     }
-    
+
 }

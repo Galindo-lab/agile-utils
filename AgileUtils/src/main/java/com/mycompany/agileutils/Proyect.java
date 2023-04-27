@@ -1,13 +1,16 @@
 package com.mycompany.agileutils;
 
+import java.io.IOException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.mpxj.ProjectFile;
 
 public class Proyect {
 
     private String name;
     private String objetive;
-    private ProyectFile file;
-    
+
     public Vector<Requirement> requirements = new Vector<>();
     public TaskBoard taskboard;
     public Vector<UserHistory> stories = new Vector<>();
@@ -17,7 +20,19 @@ public class Proyect {
         this.objetive = objetive;
         this.taskboard = new TaskBoard();
     }
-    
+
+    public void export() {
+        var projectFile = new ProjectFile();
+        var exporter = new ProyectFileExporter(this, projectFile);
+        
+        
+        try {
+            exporter.write();
+        } catch (IOException ex) {
+            Logger.getLogger(Proyect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public String getName() {
         return this.name;
     }
@@ -32,30 +47,6 @@ public class Proyect {
 
     public void setObjetive(String objetive) {
         this.objetive = objetive;
-    }
-    
-    
-    
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Proyect{");
-        sb.append("name=").append(name);
-        sb.append(", objetive=").append(objetive);
-        sb.append(", file=").append(file);
-        sb.append(", requirements=").append(requirements);
-        sb.append(", taskboard=").append(taskboard);
-        sb.append(", stories=").append(stories);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    public ProyectFile getFile() {
-        return file;
-    }
-
-    public void setFile(ProyectFile file) {
-        this.file = file;
     }
 
 
