@@ -21,6 +21,9 @@ public class Proyect {
         this.taskboard = new TaskBoard();
     }
 
+    /**
+     * covierte el archivo en un MPX
+     */
     public void export() {
         var projectFile = new ProjectFile();
         var exporter = new ProyectFileExporter(this, projectFile);

@@ -21,6 +21,11 @@ public class TaskBoard {
         return this.activities.size();
     }
     
+    /**
+     * Obtener una actividad por su id interno
+     * @param id
+     * @return 
+     */
     public Task getByID(int id)
     {
         
@@ -33,6 +38,11 @@ public class TaskBoard {
         return null;
     }
     
+    /**
+     * Obtiene el id por posicion
+     * @param index
+     * @return 
+     */
     public Task get(int index)
     {
         return activities.get(index);
