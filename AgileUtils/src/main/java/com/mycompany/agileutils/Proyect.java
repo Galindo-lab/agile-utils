@@ -14,6 +14,7 @@ public class Proyect {
     public Vector<Requirement> requirements = new Vector<>();
     public TaskBoard taskboard;
     public Vector<UserHistory> stories = new Vector<>();
+    public Vector<Team> teams = new Vector<>();
 
     public Proyect(String name, String objetive) {
         this.name = name;
@@ -27,8 +28,7 @@ public class Proyect {
     public void export() {
         var projectFile = new ProjectFile();
         var exporter = new ProyectFileExporter(this, projectFile);
-        
-        
+
         try {
             exporter.write();
         } catch (IOException ex) {
@@ -52,5 +52,40 @@ public class Proyect {
         this.objetive = objetive;
     }
 
+    public void createTeam(String name) {
+        this.teams.add(new Team(name));
+    }
+
+    public int getTeamIndex(String name) {
+        int teamIndex = -1;
+
+        for (var i = 0; i < this.teams.size(); i++) {
+            String teamName = this.teams.get(i).getName();
+
+            if (teamName.equals(name)) {
+                teamIndex = i;
+                break;
+            }
+        }
+
+        return teamIndex;
+    }
+
+    public void removeTeam(String name) {
+        var teamIndex = this.getTeamIndex(name);
+        if (teamIndex != -1) {
+            this.teams.remove(teamIndex);
+        } else {
+            System.out.println("El equipo no existe");
+        }
+    }
+
+    public Team getTeam(String name) {
+        var teamIndex = this.getTeamIndex(name);
+        if (teamIndex == -1) {
+            return null;
+        }
+        return this.teams.get(teamIndex);
+    }
 
 }

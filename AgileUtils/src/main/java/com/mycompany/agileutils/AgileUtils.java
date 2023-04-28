@@ -21,8 +21,9 @@ public class AgileUtils {
     public static void main(String[] args) throws IOException, ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
+        
         var proyect = new ScrumProyect("Proyecto prueba", "hola");
+        
         proyect.taskboard.addActivity(
                 new Task(
                     1,
@@ -38,13 +39,23 @@ public class AgileUtils {
         
         proyect.taskboard.addActivity(
                 new Task(
-                        2,
+                    2,
                     "hola 2",
                     "hola w",
                     formatter.parse("01-04-2023"),
                     formatter.parse("10-04-2023")
                 )
         );
+        
+        proyect.createTeam("Equipo de prueba");
+        var a = proyect.getTeam("Equipo de prueba");
+        a.add(new TeamMember("Jhon Doe"));
+        a.add(new TeamMember("Luis Perez"));
+        
+        proyect.createTeam("test team");
+        a = proyect.getTeam("test team");
+        a.add(new TeamMember("Fransisco Lopez"));
+        a.add(new TeamMember("Carmen"));
         
         proyect.export();
 

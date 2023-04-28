@@ -39,7 +39,13 @@ public class ProyectFileExporter {
      * @throws IOException
      */
     public void write() throws IOException {
+        // exportar tareas
         project.taskboard.export(projectFile);
+        
+        // exportar miembros y equipos
+        for (Team team : project.teams) {
+            team.export(projectFile);
+        }
 
         ProjectWriter writer = new MPXWriter();
         writer.write(projectFile, "example.mpx");
