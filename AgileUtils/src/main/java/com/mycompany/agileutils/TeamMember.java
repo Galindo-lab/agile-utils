@@ -8,13 +8,16 @@ public class TeamMember {
 
     private String name;
     private String email;
+    private int id;
 
-    public TeamMember(String name) {
+    public TeamMember(int ID, String name) {
         this.name = name;
+        this.id = ID;
     }
 
     void export(Resource resource) {
         resource.setName(this.name);
+        resource.setID(this.id);
     }
 
     public String getName() {
@@ -33,12 +36,21 @@ public class TeamMember {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("TeamMember{");
         sb.append("name=").append(name);
         sb.append(", email=").append(email);
+        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }

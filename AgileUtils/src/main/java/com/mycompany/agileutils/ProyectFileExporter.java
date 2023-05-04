@@ -8,6 +8,8 @@ import java.io.IOException;
 import net.sf.mpxj.Duration;
 import net.sf.mpxj.PercentCompleteType;
 import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.ResourceAssignment;
+import net.sf.mpxj.Task;
 import net.sf.mpxj.TimeUnit;
 import net.sf.mpxj.mpx.MPXWriter;
 import net.sf.mpxj.writer.ProjectWriter;
@@ -41,10 +43,22 @@ public class ProyectFileExporter {
     public void write() throws IOException {
         // exportar tareas
         project.taskboard.export(projectFile);
-        
+
         // exportar miembros y equipos
         for (Team team : project.teams) {
             team.export(projectFile);
+        }
+
+        // agregar las relaciones entre las tareas y los miembros
+        for (var task : project.taskboard.activities) {
+            Task foo = projectFile.getTaskByID(task.getId());
+            TeamMember member = task.getTeamMember();
+
+            if (member != null) {
+                var a = projectFile.getResourceByID(member.getId());
+                foo.addResourceAssignment(a);
+            }
+
         }
 
         ProjectWriter writer = new MPXWriter();

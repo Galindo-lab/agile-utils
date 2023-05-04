@@ -45,7 +45,6 @@ public class Task {
 
     /**
      * Calcula la diferencia entre el inicio y el final en dias
-     *
      * @return
      */
     public long getDurationDays() {

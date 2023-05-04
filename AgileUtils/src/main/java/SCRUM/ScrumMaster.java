@@ -3,9 +3,9 @@ package SCRUM;
 import com.mycompany.agileutils.TeamMember;
 
 public class ScrumMaster extends TeamMember {
-
-    public ScrumMaster(String name, int id) {
-        super(name);
+    
+    public ScrumMaster(int ID, String name) {
+        super(ID, name);
     }
 
 }

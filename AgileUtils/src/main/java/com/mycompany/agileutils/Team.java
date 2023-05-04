@@ -7,7 +7,7 @@ import net.sf.mpxj.Resource;
 public class Team {
 
     private String name;
-    public Vector<TeamMember> members = new Vector<>();
+    private Vector<TeamMember> members = new Vector<>();
 
     public Team(String name) {
         this.name = name;
@@ -22,7 +22,51 @@ public class Team {
         }
     }
     
-    public void add(TeamMember teamMember)
+    public TeamMember getMemberByID(int id)
+    {
+        int index = this.getMemberIndexByName(name);
+        
+        if (index != -1) {
+            return this.members.get(index);
+        }
+        
+        return null;
+    }
+    
+    public int getMemberIndexByID(int id)
+    {
+        for (int i = 0; i < this.members.size(); i++) {
+            if (this.members.get(i).getId() == id) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    public int getMemberIndexByName(String name)
+    {
+        for (int i = 0; i < this.members.size(); i++) {
+            if (this.members.get(i).getName().equals(name)) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    public TeamMember getMember(String name)
+    {
+        int index = this.getMemberIndexByName(name);
+        
+        if (index != -1) {
+            return this.members.get(index);
+        }
+        
+        return null;
+    }
+    
+    public void addMember(TeamMember teamMember)
     {
         this.members.add(teamMember);
     }

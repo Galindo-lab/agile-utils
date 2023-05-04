@@ -4,13 +4,6 @@ import SCRUM.ScrumProyect;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import net.sf.mpxj.Duration;
-import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.Resource;
-import net.sf.mpxj.ResourceAssignment;
-import net.sf.mpxj.TimeUnit;
-import net.sf.mpxj.mpx.MPXWriter;
-import net.sf.mpxj.writer.ProjectWriter;
 
 /**
  *
@@ -35,7 +28,6 @@ public class AgileUtils {
         );
         
         proyect.taskboard.getByID(1).setStatus(Task.DONE);
-        System.out.println(proyect.taskboard.getByID(1).getDurationDays());
         
         proyect.taskboard.addActivity(
                 new Task(
@@ -49,13 +41,17 @@ public class AgileUtils {
         
         proyect.createTeam("Equipo de prueba");
         var a = proyect.getTeam("Equipo de prueba");
-        a.add(new TeamMember("Jhon Doe"));
-        a.add(new TeamMember("Luis Perez"));
+        a.addMember(new TeamMember(1,"Jhon Doe"));
+        a.addMember(new TeamMember(2,"Luis Perez"));
+        
+        //a.getMember("Jhon Doe")
         
         proyect.createTeam("test team");
         a = proyect.getTeam("test team");
-        a.add(new TeamMember("Fransisco Lopez"));
-        a.add(new TeamMember("Carmen"));
+        a.addMember(new TeamMember(3,"Fransisco Lopez"));
+        a.addMember(new TeamMember(4,"Carmen"));
+        
+        proyect.taskboard.getByID(1).teamMember = a.getMember("Carmen");
         
         proyect.export();
 
