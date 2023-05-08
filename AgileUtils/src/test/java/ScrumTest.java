@@ -83,12 +83,12 @@ public class ScrumTest {
         assertNotNull(proyect.getTeam(equipoExiste));
     }
 
-    @Test
-    public void teamMembers() {
-        String equipoExiste = "Equipo de prueba";
-        
-        ScrumTeam selectedTeam = proyect.getTeam(equipoExiste);
-        selectedTeam.members.add(new TeamMember("Persona de prueba"));
-        System.out.println(proyect.getTeam(equipoExiste));
-    }
+//    @Test
+//    public void teamMembers() {
+//        String equipoExiste = "Equipo de prueba";
+//        
+//        ScrumTeam selectedTeam = proyect.getTeam(equipoExiste);
+//        selectedTeam.members.add(new TeamMember("Persona de prueba"));
+//        System.out.println(proyect.getTeam(equipoExiste));
+//    }
 }

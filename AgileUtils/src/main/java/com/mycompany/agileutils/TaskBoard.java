@@ -8,11 +8,19 @@ public class TaskBoard {
 
     public Vector<Task> activities = new Vector<>();
 
-    public void addActivity(Task activity) {
+    /** 
+     * Agregar una actividad al taskboard
+     * @param activity 
+     */
+    public void add(Task activity) {
         activities.add(activity);
     }
 
-    public void removeActivity(int id) {
+    /**
+     * Elimina una activadad del taskboard
+     * @param id 
+     */
+    public void remove(int id) {
         activities.remove(id);
     }
     

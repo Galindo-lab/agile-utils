@@ -4,13 +4,13 @@
  */
 package com.mycompany.agileutils;
 
+import java.io.File;
 import java.io.IOException;
-import net.sf.mpxj.Duration;
-import net.sf.mpxj.PercentCompleteType;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.ResourceAssignment;
 import net.sf.mpxj.Task;
-import net.sf.mpxj.TimeUnit;
 import net.sf.mpxj.mpx.MPXWriter;
 import net.sf.mpxj.writer.ProjectWriter;
 
@@ -21,12 +21,10 @@ import net.sf.mpxj.writer.ProjectWriter;
  */
 public class ProyectFileExporter {
 
-    private ProjectFile projectFile; // arhivo MPXJ
-    private Proyect project; // parte de la bibloteca para AGIL
+    private final ProjectFile projectFile; // arhivo MPXJ
+    private final Proyect project; // parte de la bibloteca para AGIL
 
     /**
-     * Constructor
-     *
      * @param project Proyecto de AGIL-UTILS
      * @param projectFile Proyecto de MPXJ
      */
@@ -36,20 +34,25 @@ public class ProyectFileExporter {
     }
 
     /**
-     * Escribe el archivo MPX
-     *
-     * @throws IOException
+     * exportar tareas
      */
-    public void write() throws IOException {
-        // exportar tareas
+    private void exportTaskboard() {
         project.taskboard.export(projectFile);
+    }
 
-        // exportar miembros y equipos
+    /**
+     * exportar miembros y equipos
+     */
+    private void exportTeams() {
         for (Team team : project.teams) {
             team.export(projectFile);
         }
+    }
 
-        // agregar las relaciones entre las tareas y los miembros
+    /**
+     * gregar las relaciones entre las tareas y los miembros
+     */
+    private void exportAssignations() {
         for (var task : project.taskboard.activities) {
             Task foo = projectFile.getTaskByID(task.getId());
             TeamMember member = task.getTeamMember();
@@ -60,9 +63,24 @@ public class ProyectFileExporter {
             }
 
         }
+    }
+
+    /**
+     * Escribe el archivo MPX
+     *
+     * @throws IOException
+     */
+    public void write() throws IOException {
+        this.exportTaskboard();
+        this.exportTeams();
+        this.exportAssignations();
 
         ProjectWriter writer = new MPXWriter();
-        writer.write(projectFile, "example.mpx");
+
+        File a = project.getPath().toFile();
+
+        writer.write(projectFile, a);
+
     }
 
 }

@@ -15,9 +15,9 @@ public class AgileUtils {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         
-        var proyect = new ScrumProyect("Proyecto prueba", "hola");
+        var proyect = new ScrumProyect("ProyectoPrueba", "hola");
         
-        proyect.taskboard.addActivity(
+        proyect.taskboard.add(
                 new Task(
                     1,
                     "hola",
@@ -29,7 +29,7 @@ public class AgileUtils {
         
         proyect.taskboard.getByID(1).setStatus(Task.DONE);
         
-        proyect.taskboard.addActivity(
+        proyect.taskboard.add(
                 new Task(
                     2,
                     "hola 2",
