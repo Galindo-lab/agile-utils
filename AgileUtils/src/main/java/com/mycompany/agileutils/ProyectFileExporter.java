@@ -77,7 +77,8 @@ public class ProyectFileExporter {
 
         ProjectWriter writer = new MPXWriter();
 
-        File a = project.getPath().toFile();
+        //File a = project.getPath().toFile();
+        File a = project.getFile().getPath().toFile();
 
         writer.write(projectFile, a);
 

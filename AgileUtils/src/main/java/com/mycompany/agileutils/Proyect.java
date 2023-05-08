@@ -14,7 +14,7 @@ public class Proyect {
 
     private String name;
     private String objetive;
-    private Path path;
+    private final ProyectFile file;
 
     public Vector<Requirement> requirements = new Vector<>();
     public TaskBoard taskboard;
@@ -25,23 +25,10 @@ public class Proyect {
         this.name = name;
         this.objetive = objetive;
         this.taskboard = new TaskBoard();
-        this.path = Paths.get(name+".mpx");
+        this.file = new ProyectFile(this);
     }
 
-    /**
-     * Exporta el archivo a MPP
-     */
-    public void export() {
-        var projectFile = new ProjectFile();
-        System.out.println("");
-        var exporter = new ProyectFileExporter(this, projectFile);
-
-        try {
-            exporter.write();
-        } catch (IOException ex) {
-            Logger.getLogger(Proyect.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     /**
      * Crea un equipo nuevo en el equipo
@@ -117,31 +104,8 @@ public class Proyect {
         this.objetive = objetive;
     }
 
-    public Path getPath() {
-        return path;
+    public ProyectFile getFile() {
+        return file;
     }
-
-    /**
-     *
-     * @param path
-     */
-    public void setPath(Path path) {
-        if (Files.isDirectory(path)) {
-            // si es un idrectorio agregar el archivo
-            this.path = path.resolve(name.concat(".mpx"));
-            return;
-        }
-
-        String extension = FilenameUtils.getExtension(path.toString());
-        if (extension.toLowerCase().equals(".mpx")) {
-            // si es un archivo pero con otra extencion cambiar la extencion
-            String pathNoext = FilenameUtils.removeExtension(path.toString());
-            
-            this.path = Paths.get(pathNoext.concat(".mpx"));
-            return;
-        }
-        
-        // si es un path con un archivo .mpp
-        this.path = path;
-    }
+    
 }

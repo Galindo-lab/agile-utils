@@ -53,7 +53,7 @@ public class AgileUtils {
         
         proyect.taskboard.getByID(1).teamMember = a.getMember("Carmen");
         
-        proyect.export();
+        proyect.getFile().export();
 
 //
 //        ProjectFile project = new ProjectFile();
