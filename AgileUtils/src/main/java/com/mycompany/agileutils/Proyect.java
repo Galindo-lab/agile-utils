@@ -1,14 +1,6 @@
 package com.mycompany.agileutils;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.sf.mpxj.ProjectFile;
-import org.apache.commons.io.FilenameUtils;
 
 public class Proyect {
 
@@ -27,8 +19,6 @@ public class Proyect {
         this.taskboard = new TaskBoard();
         this.file = new ProyectFile(this);
     }
-
-    
 
     /**
      * Crea un equipo nuevo en el equipo
@@ -107,5 +97,5 @@ public class Proyect {
     public ProyectFile getFile() {
         return file;
     }
-    
+
 }

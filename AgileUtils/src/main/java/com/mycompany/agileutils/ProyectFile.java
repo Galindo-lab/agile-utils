@@ -18,7 +18,7 @@ public class ProyectFile {
         this.project = project;
         this.path = Paths.get(project.getName() + ".mpx");
     }
-    
+
     /**
      * Exporta el archivo a MPP
      */
@@ -32,7 +32,7 @@ public class ProyectFile {
             Logger.getLogger(Proyect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -61,11 +61,11 @@ public class ProyectFile {
         if (extension.toLowerCase().equals(".mpx")) {
             // si es un archivo pero con otra extencion cambiar la extencion
             String pathNoext = FilenameUtils.removeExtension(path.toString());
-            
+
             this.path = Paths.get(pathNoext.concat(".mpx"));
             return;
         }
-        
+
         // si es un path con un archivo .mpp
         this.path = path;
     }

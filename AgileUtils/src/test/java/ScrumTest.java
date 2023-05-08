@@ -6,8 +6,12 @@
 import SCRUM.ScrumProyect;
 import SCRUM.ScrumTeam;
 import com.mycompany.agileutils.Requirement;
+import com.mycompany.agileutils.Task;
 import com.mycompany.agileutils.Team;
 import com.mycompany.agileutils.TeamMember;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,9 +56,6 @@ public class ScrumTest {
     //
     // @Test
     // public void hello() {}
-    /**
-     * TODO: Preguntar si los requerimientos se pueden eliminar
-     */
     @Test
     public void requirements() {
         String requirement = "Esta es una prueba de requerimientos";
@@ -64,31 +65,68 @@ public class ScrumTest {
     }
 
     @Test
-    public void Teams() {
-        String equipoExiste = "Equipo de prueba";
-        String equipoNoExiste = "Equipo de prueba que no existe";
+    public void tasks() throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-        proyect.createTeam(equipoExiste);
+        proyect.taskboard.add(
+                new Task(
+                        1,
+                        "hola",
+                        "holad",
+                        formatter.parse("01-04-2023"),
+                        formatter.parse("10-04-2023")
+                )
+        );
 
-        // referenciar si existe
-        assertNotNull(proyect.getTeam(equipoExiste));
+        proyect.taskboard.add(
+                new Task(
+                        2,
+                        "hola 2",
+                        "hola w",
+                        formatter.parse("01-04-2023"),
+                        formatter.parse("10-04-2023")
+                )
+        );
 
-        // retornar null si no
-        assertNull(proyect.getTeam(equipoNoExiste));
-
-        proyect.removeTeam(equipoExiste);
-        assertNull(proyect.getTeam(equipoExiste));
-        
-        proyect.createTeam(equipoExiste);
-        assertNotNull(proyect.getTeam(equipoExiste));
+        assertNotNull(proyect.taskboard.getByID(1));
+        assertNotNull(proyect.taskboard.getByID(2));
+        assertNull(proyect.taskboard.getByID(0));
     }
 
-//    @Test
-//    public void teamMembers() {
-//        String equipoExiste = "Equipo de prueba";
-//        
-//        ScrumTeam selectedTeam = proyect.getTeam(equipoExiste);
-//        selectedTeam.members.add(new TeamMember("Persona de prueba"));
-//        System.out.println(proyect.getTeam(equipoExiste));
-//    }
+    @Test
+    public void teams() {
+        proyect.createTeam("Equipo de prueba");
+        proyect.createTeam("test team");
+
+        assertNotNull(proyect.getTeam("Equipo de prueba"));
+        assertNotNull(proyect.getTeam("test team"));
+    }
+
+    @Test
+    public void members() {
+        this.teams();
+        
+        var a = proyect.getTeam("Equipo de prueba");
+        System.out.println(a);
+        
+        a.addMember(new TeamMember(1, "Jhon Doe"));
+        a.addMember(new TeamMember(2, "Luis Perez"));
+
+        a = proyect.getTeam("test team");
+        a.addMember(new TeamMember(3, "Fransisco Lopez"));
+        a.addMember(new TeamMember(4, "Carmen"));
+        
+        proyect.taskboard.getByID(1).teamMember = a.getMember("Carmen");
+    }
+
+    
+    @Test
+    public void export() {
+        var foo = Paths.get("C:\\Users\\Eduar\\OneDrive\\Escritorio");
+        
+        proyect.getFile().setPath(foo);
+        proyect.getFile().export();
+        
+        assertTrue(foo.toFile().exists());
+    }
 }

@@ -2,6 +2,7 @@ package com.mycompany.agileutils;
 
 import SCRUM.ScrumProyect;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -53,6 +54,7 @@ public class AgileUtils {
         
         proyect.taskboard.getByID(1).teamMember = a.getMember("Carmen");
         
+        proyect.getFile().setPath(Paths.get("C:\\Users\\Eduar\\OneDrive\\Escritorio"));
         proyect.getFile().export();
 
 //
