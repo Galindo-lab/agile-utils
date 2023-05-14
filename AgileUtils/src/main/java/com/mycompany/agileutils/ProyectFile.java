@@ -4,21 +4,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.mpx.MPXReader;
 import org.apache.commons.io.FilenameUtils;
 
 public class ProyectFile {
 
     private Path path;
-    private final Proyect project;
+    private Proyect project;
 
     public ProyectFile(Proyect project) {
         this.project = project;
         this.path = Paths.get(project.getName() + ".mpx");
     }
 
+    
     /**
      * Exporta el archivo a MPP
      */
@@ -32,20 +35,11 @@ public class ProyectFile {
             Logger.getLogger(Proyect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ProyectFile{");
-        sb.append("path=").append(path);
-        sb.append('}');
-        return sb.toString();
-    }
-
+    
     public Path getPath() {
         return path;
     }
-
+    
     /**
      *
      * @param path
@@ -68,6 +62,14 @@ public class ProyectFile {
 
         // si es un path con un archivo .mpp
         this.path = path;
+    }
+
+    public Proyect getProject() {
+        return project;
+    }
+
+    public void setProject(Proyect project) {
+        this.project = project;
     }
 
 }

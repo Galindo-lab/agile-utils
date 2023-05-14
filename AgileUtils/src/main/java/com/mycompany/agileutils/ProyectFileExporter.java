@@ -21,8 +21,8 @@ import net.sf.mpxj.writer.ProjectWriter;
  */
 public class ProyectFileExporter {
 
-    private final ProjectFile projectFile; // arhivo MPXJ
-    private final Proyect project; // parte de la bibloteca para AGIL
+    private ProjectFile projectFile; // arhivo MPXJ
+    private Proyect project; // parte de la bibloteca para AGIL
 
     /**
      * @param project Proyecto de AGIL-UTILS
@@ -61,7 +61,6 @@ public class ProyectFileExporter {
                 var a = projectFile.getResourceByID(member.getId());
                 foo.addResourceAssignment(a);
             }
-
         }
     }
 

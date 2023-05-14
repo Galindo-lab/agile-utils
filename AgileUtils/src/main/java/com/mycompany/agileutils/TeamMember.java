@@ -6,13 +6,28 @@ import net.sf.mpxj.ResourceAssignment;
 
 public class TeamMember {
 
+    private static int id_key = 0;
+    
     private String name;
     private String email;
     private int id;
 
+    /**
+     * @deprecated 
+     * @param ID
+     * @param name 
+     */
+    @Deprecated
     public TeamMember(int ID, String name) {
         this.name = name;
         this.id = ID;
+    }
+    
+    public TeamMember(String name) {
+        this.name = name;
+        this.id = id_key;
+        
+        id_key++;
     }
 
     void export(Resource resource) {
