@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.mpxj.MPXJException;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.mpx.MPXReader;
 import org.apache.commons.io.FilenameUtils;
@@ -21,6 +22,12 @@ public class ProyectFile {
         this.path = Paths.get(project.getName() + ".mpx");
     }
 
+    public void load(String name) throws MPXJException {
+        var projectFile = new ProjectFile();
+        var importer = new ProyectFileImporter(project, this);
+        
+        importer.load(name);
+    }
     
     /**
      * Exporta el archivo a MPP

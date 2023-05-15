@@ -1,5 +1,6 @@
 package com.mycompany.agileutils;
 
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Vector;
 import net.sf.mpxj.MPXJException;
@@ -12,7 +13,7 @@ public class Proyect {
 
     private String name;
     private String objetive;
-    private final ProyectFile file;
+    private ProyectFile file;
 
     public Vector<Requirement> requirements = new Vector<>();
     public TaskBoard taskboard;
@@ -25,46 +26,18 @@ public class Proyect {
         this.taskboard = new TaskBoard();
         this.file = new ProyectFile(this);
     }
-
-    public void loadTeamMembers(ProjectFile project) {
-        for (Resource resource : project.getResources()) {
-            String teamName = resource.getGroup();
-            Team team = this.getTeam(teamName);
-
-            if (team == null) {
-                team = this.createTeam(teamName);
-            }
-
-            team.addMember(new TeamMember(resource.getName()));
-        }
-        
-        
+    
+    public void load(String path) throws MPXJException {
+        this.file.load(path);
     }
-
-    public void load(String name) throws MPXJException {
-        MPXReader reader = new MPXReader();
-        reader.setLocale(Locale.US);
-
-        ProjectFile project = reader.read(name);
-
-        this.loadTeamMembers(project);
-        this.taskboard.importTasks(project);
-        
-        for (int i = 0; i < project.getChildTasks().size(); i++) {
-            Task task = project.getTasks().get(i);
-            
-            if (task.getResourceAssignments().isEmpty()) {
-                continue;
-            }
-            
-            var member = task.getResourceAssignments().get(0);
-
-            Team team = this.getTeam(member.getResource().getGroup());
-            TeamMember mb = team.getMember(member.getResource().getName());
-            
-            this.taskboard.activities.get(i).setTeamMember(mb);
-        }
-        
+    
+    /**
+     * 
+     * @param path 
+     */
+    public void export(String path){
+        this.file.setPath(Paths.get(path));
+        this.file.export();
     }
 
     /**
